@@ -4,5 +4,8 @@ e-Acad is a website which is developed with an open-source web framework written
 <h2> Aim and Scope</h2>
 The main purpose of e-Acad is to implement systematic online course management where we merged all the academic activities. This website is designed to support both teaching and learning where all the class notes, assignments, submissions , permissions, discussions,marks and feedback are managed among the stakeholders. As a whole this website would reduce the involvement of hard copies.
 <h3>Stakeholders:</h3>
-*Teacher<br>
+* Teacher<br>
+* Teaching Assistant<br>
+* Student<br>
+* Admin<br>
 
