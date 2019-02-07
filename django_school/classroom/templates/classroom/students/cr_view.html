@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+     <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="yellow">My Courses</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Register for CR Elections</li>
+     </ol>
+    </nav>
+     <div class="well">
+       {% include 'messages.html' %}
+      <div class="page-header">
+         <blockquote>
+           <h2>Election</h2>
+             {% for x in att %}
+               {% if x.winner == True %}
+                 <b>CR : {{ x.candidate }}</b>
+               {% endif %}
+             {% endfor%}
+         </blockquote> </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+             <tr style="color: black;">
+                        <th>Student Name</th>
+                        <th>Count</th>
+                        <th>Vote</th>
+                    </tr>
+
+            </thead>
+            <tbody>
+                {% for course in att %}
+                <tr>
+                    <td class="align-middle" ><b>{{ course.candidate }}</b></a></td>
+                    <td id ="demo" class="align-middle" ><b>{{ course.count }}</b></a></td>
+                    <td ><a href="{% url 'cr_vote' course.id %}"class="btn btn-button" role="button">Vote</a></td>
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">No Candidates yet! .</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load comments static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'fluent_comments/css/ajaxcomments.css' %}" />
+<script type="text/javascript" src="{% static 'fluent_comments/js/ajaxcomments.js' %}"></script>
+        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'course_add' %}" class="yellow">My Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'assign_ccc' x %}" class="yellow">CR Candidates</a></li>
+      <li class="breadcrumb-item active" aria-current="page">List of the Students for CR elections</li>
+    </ol>
+  </nav>
+
+
+   <div class="well">
+      <div class="page-header">
+         <blockquote>
+           <h2>Count of votes</h2>
+             <b>Candidates with highest votes:</b><br>
+
+             {% for x in high %}
+             <b> {{ x.candidate }} : {{ kl }}</b>
+             {% endfor %}
+             <br>
+         </blockquote> </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+             <tr style="color: black;">
+                        <th>Student Name</th>
+                        <th> votes </th>
+                        <th>Declare Result</th>
+                    </tr>
+
+            </thead>
+            <tbody>
+                {% for course in votes %}
+                <tr>
+                    <td class="align-middle" ><b>{{ course.candidate }}</b></td>
+                    <td class="align-middle"><b>{{ course.count }}</b></td>
+                    {% if course.count == kl %}
+                    <td class="align-middle"><a  href="{% url 'declare_result' course.id %}" class="btn btn-button btn-sm" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content=" Approve student for elections" role="button">Declare</a></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">students haven't registered yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+{% endblock %}

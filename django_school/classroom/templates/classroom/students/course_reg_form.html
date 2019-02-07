@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Courses Offered</li>
+    </ol>
+  </nav>
+<div class="well">
+<h2 class="mb-3">Courses Offered</h2>
+ <div class="card">
+    <table class="table mb-0">
+
+        <tr>
+          <th>Code-Title</th>
+        </tr>
+    </table>
+     <form method="post" novalidate>
+              {% csrf_token %}
+              {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Save</button>
+       </form>
+
+ </div>
+</div>
+{% endblock %}

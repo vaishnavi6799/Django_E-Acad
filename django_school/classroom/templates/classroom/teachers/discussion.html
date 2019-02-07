@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'coursereg_list' user.id %}">My Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'course_view' document.course.id%}">{{ course.course_title }}</a></li>
+
+    </ol>
+  </nav>
+   <div class="card">
+    <table class="table mb-0">
+        <thead>
+        <tr>
+          <th>user</th>
+
+            <th>comment</th>
+        </tr>
+      </thead>
+         <tbody>
+           {% for document in comments %}
+          <tr>
+
+              <td class="align-middle"><h6>{{ document.user }}</h6></td>
+             <!-- <td class="align-middle"><h6>(Uploaded at: {{ document.uploaded_at }})</h6></td>-->
+
+              <td class="align-middle"><h6>{{ document.comment }}</h6>
+
+            {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">No comments yet!.</td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+       <td class="align-middle"><a href ="{% url 'comment_notes' document.pk %}" class="btn btn-primary btn-sm" role="button">Add Comment</a> </td>
+
+ </div>
+{% endblock %}

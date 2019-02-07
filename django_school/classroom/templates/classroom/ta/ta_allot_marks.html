@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+       <li class="breadcrumb-item"><a href="{% url 'ta_course_list' %}" class="yellow">My Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'course_ta_view' submissions.course.id%}" class="yellow">{{ submissions.course }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'ta_student_submissions' submissions.course.id submissions.assignment.id  %}" class="yellow">Submissions</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ submissions.student }}</li>
+    </ol>
+  </nav>
+
+ <div class="well">
+     <div class="page-header">
+             <h2>allot marks and feedback </h2>
+        </div>
+     <div class="panel panel-primary">
+            <div class="table-responsive">
+            <table class="table table-hover">
+        <thead>
+        <tr style="color: black;">
+          <th>Submissions</th>
+            <th>Student Name</th>
+            <th>Uploaded at</th>
+            <th>Marks</th>
+        </tr>
+      </thead>
+         <tbody>
+          <tr>
+             <td class="align-middle"><a href="{{ submissions.file_upload.url }}" class="colour">{{ submissions.file_name }}</a></td>
+              <td class="align-middle"><b>{{ submissions.student }}</b></td>
+              <td class="align-middle"><small> {{ submissions.uploaded_at }}</small><br></td>
+             <!-- <td class="align-middle"><input type="text" placeholder="{{ document.mark }}" name="uname" required> -->
+              <td class="align-middle">
+                  <form method="post" novalidate>
+          {% csrf_token %}
+          {{ form|crispy }}
+        <button type="submit" class="btn btn-button">Save changes</button>
+         </form>
+
+      </tbody>
+    </table>
+ </div>
+     </div></div>
+{% endblock %}

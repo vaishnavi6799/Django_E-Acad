@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">My Courses</li>
+    </ol>
+  </nav>
+
+
+<div class="well">
+        {% include 'messages.html' %}
+        <div class="row text-center">
+            <div class="col-sm-6">
+                <span class="glyphicon glyphicon-education logo "></span>
+                <h4><a href="{% url 'update_ta_course' request.user.id %}" class="colour" data-toggle="popover" data-trigger="hover" data-content="For course registration first update semester" >UPDATE COURSES </a></h4>
+            </div>
+            <div class="col-sm-6">
+                <span class="glyphicon glyphicon-edit logo "></span>
+                <h4><a href="{% url 'ta_view_profile' user.id %}"  class="colour" data-toggle="popover" data-trigger="hover" data-content="After Updating the semester do course registration" >UPDATE PROFILE</a></h4>
+            </div>
+        </div>
+    </div>
+      <div class="jumbotron text-center">
+        <a href ="{% url 'ta_private'%}"class="btn btn-button btn-block btn-lg" role="button">My Private Files</a>
+      </div>
+
+<div class="well">
+
+    <div class="page-header">
+         <blockquote>
+           <h2>My Courses</h2>
+         </blockquote></div>
+ <div class="table-responsive">
+          <table class="table table-hover">
+                <thead>
+        <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+      </thead>
+         <tbody>
+
+         {% if courses %}
+         {% for course in courses %}
+          <tr>
+
+              <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+              <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+             <td class="align-middle"><a href="{% url 'course_ta_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+          </tr>
+
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">no class notes uploades:).</td>
+          </tr>
+        {% endfor %}
+         {% endif %}
+          </tbody>
+    </table>
+ </div>
+    </div>
+
+
+{% endblock %}

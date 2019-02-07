@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <nav aria-label="breadcrumb">
+     <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="yellow">My Courses</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Register for CR Elections</li>
+     </ol>
+    </nav>
+    <div class="well">
+         {% include 'messages.html' %}
+      <div class="page-header">
+         <blockquote>
+           <h2>Register for CR elections</h2>
+         </blockquote>
+      </div>
+
+              <button type="submit" class="btn btn-button">Register for CR elections</button>
+    </div>
+
+
+{% endblock %}

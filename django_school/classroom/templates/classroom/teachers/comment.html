@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'course_add' %}">My Courses</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'course_view' document.course.pk %}">{{ course.course_title }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Add a new Comment</li>
+    </ol>
+  </nav>
+  <h2 class="mb-3">Add Comment</h2>
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Comment</button>
+     <p><a href="{% url 'course_view' document.course.id %}">Return to Course_page</a></p>
+  </form>
+  </nav>
+{% endblock %}
+
+

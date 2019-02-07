@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+
+
+
+ <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'coursereg_list' user.id %}" class="yellow">My Courses</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ course.course_title }}</li>
+        </ol>
+    </nav>
+
+    <div class="page-header">
+        {% include 'messages.html' %}
+         <blockquote class="blockquote">
+             <h2 style="color: grey;">SEMESTER: {{ course.semester }}</h2>
+             <h2 style="color: grey;">Course-Code: {{ course.course_code }}</h2>
+             <h2 style="color: grey;">Course-Title: {{ course.course_title }}</h2>
+             <h3 style="color: grey;">{{course.about}}</h3>
+         </blockquote>
+    </div>
+     <div class="jumbotron text-center">
+         <a href="{% url 'att_view' course.id %}"  class="btn btn-button btn-block btn-lg" role="button">Attendance Info</a>
+
+     </div>
+
+
+    <div class="well">
+        <div class="page-header">
+             <h2>CLASS NOTES</h2>
+        </div>
+        <div class="panel panel-primary">
+            <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr style="color: black;">
+                        <th>Class Notes</th>
+                        <th>Uploaded at</th>
+                        <th>Discussion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for document in documents %}
+                <tr>
+                    <td class="align-middle"> <a href="{{ document.file_upload.url }}" class="colour">{{ document.file_name }}</a></td>
+                    <td class="align-middle"> <small>(Uploaded at: {{ document.uploaded_at }})</small></td>
+                    <td class="align-middle"> <a href="{% url 'add_comment_to_post_stu' document.course_id document.pk %}" class="btn btn-button btn-sm" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="discussion between teacher, ta and student" role="button">Discussion</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">No Class Notes yet!.</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="well">
+        <div class="page-header">
+             <h2>ASSIGNMENTS</h2>
+        </div>
+        <div class="panel panel-primary">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr style="color: black;">
+                  <th>Assignment</th>
+            <th>Uploaded at</th>
+            <th>Max Marks</th>
+            <th>Discussion</th>
+            <th>Submissions</th>
+            <th>View my Submission</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for document in assignments %}
+                <tr>
+                    <td class="align-middle"> <a href="{{ document.file_upload.url }}" class="colour">{{ document.file_name }}</a></td>
+                    <td class="align-middle"><small>(Uploaded at: {{ document.uploaded_at }})</small></td>
+                    <td class="align-middle">{{ document.max_marks }}</td>
+                    <td class="align-middle"> <a href="{% url 'add_comment_to_post_stu_assgn' document.course_id document.id %}" class="btn btn-button btn-sm" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="discussion between teacher, ta and student" role="button">Discussion</a></td>
+                    <td class="align-middle"><a href="{% url 'submission_add' course.id  document.id %}" class="colour" data-toggle="popover" data-trigger="hover" data-content="To submit Assignment" >Submissions</a></td>
+                    <td class="align-middle"><a href="{% url 'submit_stu_view' course.id  document.id %}" class="colour" >View my Submissions</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">No assignments yet!.</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+
+
+
+<script>
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+
+</script>
+
+{% endblock %}

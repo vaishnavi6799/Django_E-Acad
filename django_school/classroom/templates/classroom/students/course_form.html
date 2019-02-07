@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+       <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+             <li class="breadcrumb-item active" aria-current="page">My Courses</li>
+        </ol>
+    </nav>
+
+    <div class="well">
+        {% include 'messages.html' %}
+        <div class="row text-center">
+            <div class="col-sm-6">
+                <span class="glyphicon glyphicon-education logo "></span>
+                <h4><a href="{% url 'course_list' %}" class="colour" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="For course registration first update semester" >COURSE REGISTRATION</a></h4>
+            </div>
+            <div class="col-sm-6">
+                <span class="glyphicon glyphicon-edit logo "></span>
+                <h4><a href="{% url 'student_view_profile' user.id %}"  class="colour" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="After Updating the semester do course registration" >UPDATE PROFILE AND SEMESTER</a></h4>
+            </div>
+        </div>
+         </div>
+         <div class="jumbotron text-center">
+
+                 <a href="{% url 'cr_reg' user.id%}"  class="btn btn-button btn-block btn-lg" role="button">Reg for CR elections</a>
+                 <a href="{% url 'cr_view' %}"  class="btn btn-button btn-block btn-lg" role="button">Vote for CR elections</a>
+                 <a href="{% url 'private' %}"  class="btn btn-button btn-block btn-lg" role="button">My Private Files</a>
+         </div>
+
+
+    <div class="well">
+
+      <div class="page-header">
+         <blockquote>
+           <h2>My Courses</h2>
+
+         </blockquote> </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_stu_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't registered any courses yet, go ahead and do <a href="{% url 'course_list' %}" class="colour"> COURSE REGISTRATION</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+<script>
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+
+</script>
+{% endblock %}

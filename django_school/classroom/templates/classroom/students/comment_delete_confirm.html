@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+     <li class="breadcrumb-item"><a href="{% url 'coursereg_list' user.id %}" class="yellow">My Courses</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'course_stu_view' comment.course_id %}" class="yellow">{{ comment.course.course_title }}</a></li>
+
+      <li class="breadcrumb-item"><a href="{% url 'add_comment_to_post_stu' comment.course_id  comment.document_id %}" class="yellow">{{ comment.document.file_name }}</a></li>
+
+
+      <li class="breadcrumb-item active" aria-current="page"> Delete Comment</li>
+
+  </ol>
+</nav>
+
+
+<div class="well">
+
+  <h2 class="mb-3">Confirm deletion</h2>
+  <p class="lead">On deleting this comment replies under this will also be deleted, Are you sure you want to delete the <strong>comment</strong>? There is no going back.</p>
+  <form method="post">
+    {% csrf_token %}
+
+        <a href="{% url 'add_comment_to_post_stu' comment.course_id  comment.document_id %}" class="btn btn-button" role="button">Ignore</a>
+    <button type="submit" class="btn btn-danger">Confirm</button>
+  </form>
+  </div>
+{% endblock %}

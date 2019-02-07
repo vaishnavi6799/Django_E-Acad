@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load mathfilters %}
+
+{% block content %}
+
+       <nav aria-label="breadcrumb">
+             <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'course_add' %}" class="yellow">My Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'course_view' course.id%}" class="yellow">{{ course.course_title }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Attendance</li>
+    </ol>
+
+       </nav>
+
+    <div class="well">
+   {% include 'messages.html' %}
+      <div class="page-header">
+         <blockquote>
+           <h2>Attendance</h2>
+             <b>Total No of Classes: {{ course.totalclasses}}</b><br>
+             <b>No of Classes Taken: {{ course.classestaken}}</b><br><br>
+             <a href="{% url 'update_classes' course.id%}"class="btn btn-button" role="button">Update No of Classes</a>
+         </blockquote> </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+             <tr style="color: black;">
+                        <th>Roll Number</th>
+                        <th>Student Name</th>
+                        <th>No of Attended Classes</th>
+                        <th>Attend</th>
+                        <th>Update</th>
+                        <th>Percentage</th>
+                    </tr>
+
+            </thead>
+            <tbody>
+                {% for cours in att %}
+                <tr>
+                    <td>{{cours.student.user.RollNo}}</td>
+                    <td class="align-middle" ><b>{{ cours.student }}</b></td>
+                    <td id ="demo" class="align-middle" ><b>{{ cours.at }}</b></a></td>
+                    <td ><a href="{% url 'student_attendance' cours.id%}"  class="btn btn-button" role="button">Attend</a></td>
+                    <td ><a href="{% url 'student_attendance_update' cours.id%}" class="btn btn-button" role="button">Update</a></td>
+                    <td class="align-middle"><b>{{ cours.at|div:course.classestaken|mul:100|floatformat}}</b></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't registered any courses yet, go ahead and do <a href="{% url 'course_list' %}" class="colour"> COURSE REGISTRATION</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+
+{% endblock %}

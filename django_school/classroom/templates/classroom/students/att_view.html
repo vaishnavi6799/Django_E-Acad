@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load mathfilters %}
+
+{% block content %}
+
+       <nav aria-label="breadcrumb">
+             <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}" class="yellow">My Courses</a></li>
+                 <li class="breadcrumb-item"><a href="{% url 'course_stu_view' course.id %}" class="yellow">{{ course.course_title }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Attendance</li>
+    </ol>
+
+       </nav>
+
+    <div class="well">
+
+      <div class="page-header">
+         <blockquote>
+           <h2>Attendance</h2>
+             <b>Total No of Classes: {{ course.totalclasses}}</b><br>
+             <b>No of Classes Taken: {{ course.classestaken}}</b><br>
+         </blockquote> </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+             <tr style="color: black;">
+                        <th>Student Name</th>
+                        <th>No of Classes Attended</th>
+                        <th>Percentage</th>
+                    </tr>
+
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td class="align-middle" ><b>{{ att.student }}</b></a></td>
+                    <td id ="demo" class="align-middle" ><b>{{ att.at }}</b></a></td>
+
+                    <td><b>{{ p|floatformat}} </b></td>
+
+                </tr>
+
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+
+{% endblock %}

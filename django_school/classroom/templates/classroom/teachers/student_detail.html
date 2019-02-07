@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load comments static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'fluent_comments/css/ajaxcomments.css' %}" />
+<script type="text/javascript" src="{% static 'fluent_comments/js/ajaxcomments.js' %}"></script>
+        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'course_add' %}" class="yellow">My Courses</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'course_view' course.pk %}" class="yellow">{{ course.course_title }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">List of the Students</li>
+    </ol>
+  </nav>
+
+
+    <div class="well">
+
+      <div class="page-header">
+
+         <blockquote>
+           <h2>Students List</h2>
+            {% if count == zero %}
+             <p>no student registered</p>
+             {% elif count == one %}
+             <p>only "one" student has registerd</p>
+             {% else %}
+             <p>"{{ count }}" students registered successfully</p>
+             {% endif %}
+         </blockquote>
+             </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>RollNo</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                 {% for student in students %}
+                <tr>
+                    <td class="align-middle"> {{ student.user.first_name }}</td>
+                    <td class="align-middle"> <small>{{ student.user.last_name }}</small></td>
+                    <td class="align-middle"> {{ student.user.RollNo }}</td>
+                    <td class="align-middle"> <small>{{ student.user.email }}</small></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">No Class Notes yet!.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'coursereg_list' user.id %}">My Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'course_stu_view' course.id %}">{{ course.course_title }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">My Submission</li>
+    </ol>
+  </nav>
+
+<div class="card">
+    <table class="table mb-0">
+        <thead>
+        <tr>
+          <th>Submissions</th>
+            <th>Student Name</th>
+            <th>Uploaded at</th>
+            <th>Marks</th>
+            <th>FeedBack</th>
+        </tr>
+      </thead>
+         <tbody>
+           {% for document in submits %}
+          <tr>
+             <td class="align-middle"><a href="{{ document.file_upload.url }}">{{ document.file_name }}</a></td>
+              <td class="align-middle"><h6>{{ document.student }}</h6></td>
+              <td class="align-middle"><small> {{ document.uploaded_at }}</small><br></td>
+
+              <td class="align-middle"><h6>{{ document.mark }}</h6></td>
+              <td class="align-middle"><h6>{{ document.feedback }}</h6></td>
+
+            {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">No submissions yet!.</td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+ </div>
+
+{% endblock %}

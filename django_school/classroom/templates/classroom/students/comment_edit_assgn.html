@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+ <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'coursereg_list' user.id %}" class="yellow">My Courses</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'course_stu_view' commentassgn.course_id %}" class="yellow">{{ commentassgn.course.course_title }}</a></li>
+
+      <li class="breadcrumb-item"><a href="{% url 'add_comment_to_post_stu_assgn' commentassgn.course_id  commentassgn.assignment_id %}" class="yellow">{{ commentassgn.assignment.file_name }}</a></li>
+
+      <li class="breadcrumb-item active" aria-current="page"> Edit Comment</li>
+
+  </ol>
+</nav>
+  <div class="well">
+    <div class="page-header">
+      <blockquote>
+        <h2>edit comment</h2>
+      </blockquote>
+      </div>
+      <form method="post" novalidate>
+        {% csrf_token %}
+          {{ form|crispy }}
+        <a href="{% url 'add_comment_to_post_stu_assgn' commentassgn.course_id  commentassgn.assignment_id %}" class="btn btn-button" role="button">Ignore</a>
+        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-save"></span></button>
+      </form>
+
+  </div>
+
+{% endblock %}

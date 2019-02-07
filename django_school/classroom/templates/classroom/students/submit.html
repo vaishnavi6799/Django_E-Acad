@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+ <div class="card">
+    <table class="table mb-0">
+
+         <tbody>
+           {% for document in submissions %}
+        <li>
+         <a href="{{ document.file_upload.url }}">{{ document.file_name }}</a>
+             <small>(Uploaded at: {{ document.uploaded_at }})</small>
+             </li>
+      {% endfor %}
+
+
+      </tbody>
+    </table>
+ </div>
+{% endblock %}

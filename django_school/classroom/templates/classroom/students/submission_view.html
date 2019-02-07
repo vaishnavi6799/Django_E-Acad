@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'coursereg_list' user.id %}" class="yellow">My Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'course_stu_view' course.id %}" class="yellow">{{ course.course_title }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">My Submission</li>
+    </ol>
+  </nav>
+
+<div class="well">
+<div class="page-header">
+    <h3>Submissions for  the file <strong>{{ assignment.file_name }}</strong></h3>
+        </div>
+<div class="panel panel-primary">
+            <div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr style="color: black;">
+          <th>Submissions</th>
+            <th>Uploaded at</th>
+            <th>Marks</th>
+            <th>FeedBack</th>
+        </tr>
+      </thead>
+         <tbody>
+           {% for document in submits %}
+          <tr>
+             <td class="align-middle"><a href="{{ document.file_upload.url }}" class="colour">{{ document.file_name }}</a></td>
+              <td class="align-middle"><small> {{ document.uploaded_at }}</small><br></td>
+
+              {% if assignment.visible == True %}
+               <td class="align-middle"><b>{{ document.mark }}</b></td>
+               <td class="align-middle"><b>{{ document.feedback }}</b></td>
+              {% else %}
+              <td class="align-middle"><b>Not Updated yet!</b></td>
+               <td class="align-middle"><b>Not Updated yet!</b></td>
+
+              {% endif %}
+
+            {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">No submissions yet!.</td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+ </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+{% load comments static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'fluent_comments/css/ajaxcomments.css' %}" />
+<script type="text/javascript" src="{% static 'fluent_comments/js/ajaxcomments.js' %}"></script>
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+             <li class="breadcrumb-item active" aria-current="page">My Courses</li>
+        </ol>
+    </nav>
+
+<div class="well">
+        {% include 'messages.html' %}
+        <div class="row text-center">
+            <div class="col-sm-6">
+                <span class="glyphicon glyphicon-education logo "></span>
+                <h4><a href="{% url 'course_change_list' %}" class="colour" data-toggle="popover" data-trigger="hover" data-content="For course registration first update semester" >ADD COURSE </a></h4>
+            </div>
+            <div class="col-sm-6">
+                <span class="glyphicon glyphicon-edit logo "></span>
+                <h4><a href="{% url 'teacher_view_profile' user.id %}"  class="colour" data-toggle="popover" data-trigger="hover" data-content="After Updating the semester do course registration" >UPDATE PROFILE</a></h4>
+            </div>
+        </div>
+    </div>
+     <div class="jumbotron text-center">
+
+        <a href="{% url 'my_private' %}"  class="btn btn-button btn-block btn-lg" role="button">My Private Files</a>
+
+    </div>
+
+    <div class="well">
+
+      <div class="page-header">
+         <blockquote>
+           <h2>My Courses</h2>
+
+         </blockquote>
+          <p style="text-align: right;" ><a href="{% url 'course_change_list' %}"  style="color: #FDC566; font-size: 15px; text-decoration: underline;"><b><span class="glyphicon glyphicon-plus"></span> Add New Course</b></a></p>
+      </div>
+
+        <!---------semester-one--------------->
+        {% if one %}
+         <div class="page-header">
+
+           <h2>Semester-1</h2>
+ <p style="text-align: right;"><a  href="{% url 'assign_ccc' 1 %}"  class="btn btn-button btn-sm" role="button">CR elections</a></p>
+
+
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in one %}
+
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't created any course yet, go ahead and <a href="{% url 'course_change_list' %}" class="colour">ADD COURSE</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+        {% endif %}
+ <!---------semester-two--------------->
+        {% if two %}
+         <div class="page-header">
+
+           <h2>Semester-2</h2>
+
+ <p style="text-align: right;"><a  href="{% url 'assign_ccc' 2 %}"  class="btn btn-button btn-sm" role="button">CR elections</a></p>
+
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in two %}
+
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't created any course yet, go ahead and <a href="{% url 'course_change_list' %}" class="colour">ADD COURSE</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+        {% endif %}
+
+
+
+
+       <!---------semester-3--------------->
+        {% if three %}
+         <div class="page-header">
+
+           <h2>Semester-3</h2>
+ <p style="text-align: right;"><a  href="{% url 'assign_ccc' 3 %}"  class="btn btn-button btn-sm" role="button">CR elections</a></p>
+
+
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in three %}
+
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't created any course yet, go ahead and <a href="{% url 'course_change_list' %}" class="colour">ADD COURSE</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+        {% endif %}
+
+
+
+         <!---------semester-4--------------->
+        {% if four %}
+         <div class="page-header">
+
+           <h2>Semester-4</h2>
+ <p style="text-align: right;"><a  href="{% url 'assign_ccc' 4 %}"  class="btn btn-button btn-sm" role="button">CR elections</a></p>
+
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in four %}
+
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't created any course yet, go ahead and <a href="{% url 'course_change_list' %}" class="colour">ADD COURSE</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+        {% endif %}
+
+
+
+
+
+
+         <!---------semester-5--------------->
+        {% if five %}
+        <div class="page-header">
+
+           <h2>Semester-5</h2>
+
+        <p style="text-align: right;"><a  href="{% url 'assign_ccc' 5 %}"  class="btn btn-button btn-sm" role="button">CR elections</a></p>
+
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in five %}
+
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't created any course yet, go ahead and <a href="{% url 'course_change_list' %}" class="colour">ADD COURSE</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+        {% endif %}
+
+         <!---------semester-6--------------->
+        {% if six %}
+        <div class="page-header">
+
+           <h2>Semester-6</h2>
+
+ <p style="text-align: right;"><a  href="{% url 'assign_ccc' 6 %}"  class="btn btn-button btn-sm" role="button">CR elections</a></p>
+
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in six %}
+
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't created any course yet, go ahead and <a href="{% url 'course_change_list' %}" class="colour">ADD COURSE</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+        {% endif %}
+
+ <!---------semester-seven--------------->
+        {% if seven %}
+        <div class="page-header">
+
+           <h2>Semester-7</h2>
+
+ <p style="text-align: right;"><a  href="{% url 'assign_ccc' 7 %}"  class="btn btn-button btn-sm" role="button">CR elections</a></p>
+
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in seven %}
+
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't created any course yet, go ahead and <a href="{% url 'course_change_list' %}" class="colour">ADD COURSE</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+        {% endif %}
+
+
+         <!---------semester-eight--------------->
+        {% if eight %}
+        <div class="page-header">
+
+           <h2>Semester-8</h2>
+
+ <p style="text-align: right;"><a  href="{% url 'assign_ccc' 8 %}"  class="btn btn-button btn-sm" role="button">CR elections</a></p>
+
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+                <tr style="color: black;">
+                    <th>Semester</th>
+                    <th>Course code</th>
+                    <th>Course Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in eight %}
+
+                <tr>
+                    <td class="align-middle" ><b>{{ course.semester }}</b></a></td>
+                    <td class="align-middle" ><b>{{ course.course_code }}</b></a></td>
+                    <td class="align-middle" ><a href="{% url 'course_view' course.id %}" class="colour">{{ course.course_title }}</a></td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td class="bg-light text-center font-italic" colspan="5">You haven't created any course yet, go ahead and <a href="{% url 'course_change_list' %}" class="colour">ADD COURSE</a>.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+      </div>
+        {% endif %}
+
+
+    </div>
+
+{% endblock %}

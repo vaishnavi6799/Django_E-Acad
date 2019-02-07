@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+ <form action="." method="post">
+              {% csrf_token %}
+              {{ comment_form|crispy }}
+              <button type="submit" class="btn btn-success">Add New Comment</button>
+ </form>
+
+
+
+{% for comment in comments.all %}
+{{ comment.id }}||||
+{{ comment.user }}||||
+{{ comment.document }}||||||
+{{ comment.text }}||||||||
+{{ comment.created_date }}|||||
+{{ comment.updated }}|||||
+{{ comment.approved_comment }}|||||
+{{ comment.parent }}|||||<br>
+{% for reply in comment.replies.all %}
+{{ reply.id }}||||
+{{ reply.user }}||||
+{{ reply.document }}||||||
+{{ reply.text }}||||||||
+{{ reply.created_date }}|||||
+{{ reply.updated }}|||||
+{{ reply.approved_comment }}|||||
+{{ reply.parent }}|||||<br>
+<form action="." method="post">
+                    {{ comment_form|crispy }}
+                    {% csrf_token %}
+                    <!-- Hidden input for parent comment.id -->
+                    <input type="hidden" name="parent_id" value="{{ reply.id }}">
+                    <input class="btn btn-primary" type="submit" value="Replay">
+</form>
+{% endfor %}
+{% endfor %}
+{% endblock %}

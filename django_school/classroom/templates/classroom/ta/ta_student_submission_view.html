@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'ta_course_list' %}" class="yellow">My Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'course_ta_view' course.id%}" class="yellow">{{ course.course_title }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Submissions</li>
+    </ol>
+  </nav>
+    <div class="well">
+        {% include 'messages.html' %}
+        <div class="page-header">
+             <h2>SUBMISSIONS</h2>
+        </div>
+        <div class="panel panel-primary">
+            <div class="table-responsive">
+                <table class="table table-hover">
+        <thead>
+        <tr style="color: black;">
+          <th>Submissions</th>
+            <th>Student Name</th>
+            <th>Uploaded at</th>
+            <th>Marks</th>
+        </tr>
+      </thead>
+         <tbody>
+           {% for document in submits %}
+          <tr>
+          <td class="align-middle"><a href="{{ document.file_upload.url }}" class="colour">{{ document.file_name }}</a></td>
+              <td class="align-middle"><b>{{ document.student }}</b></td>
+              <td class="align-middle"><small> {{ document.uploaded_at }}</small><br></td>
+             <!-- <td class="align-middle"><input type="text" placeholder="{{ document.mark }}" name="uname" required> -->
+              <td class="align-middle">
+                  <a href="{% url 'ta_allot_marks' document.id %}" class="btn btn-button" role="button" >Allot Marks</a></td>
+            {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">No submissions yet!.</td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+            </div></div></div>
+ </div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 10000;
+}
+
+
+  .popup {
+  width: 33.333333%;
+  padding: 15px;
+  left: 0;
+  margin-left: 33.333333%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: white;
+  position: absolute;
+  top: 15%;
+  box-shadow: 5px 5px 5px #000;
+  z-index: 10001;
+}
+
+@media (min-width: 768px) {
+  .popup {
+    width: 66.66666666%;
+    margin-left: 16.666666%;
+  }
+}
+@media (min-width: 992px) {
+  .popup {
+    width: 50%;
+    margin-left: 25%;
+  }
+}
+@media (min-width: 1200px) {
+  .popup {
+    width: 33.33333%;
+    margin-left: 33.33333%;
+  }
+}
+
+</style>
+
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'course_add' %}" class="yellow">My Courses</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'course_view' assignment.course_id %}" class="yellow">{{ assignment.course.course_title }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ assignment.file_name }}</li>
+    </ol>
+  </nav>
+<div class="well">
+  <h2 class="mb-3">Confirm deletion</h2>
+  <p class="lead">Are you sure you want to delete the file  <strong>"{{ assignment.file_name }}"</strong>? There is no going back.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirm</button>
+    <a href="{% url 'course_view' assignment.course.pk %}" class="btn btn-button" role="button">Ignore</a>
+  </form>
+  </div>
+<!--
+
+<div class="overlay">
+  <div class="popup">
+    <p>This is the message</p>
+    <div class="text-right">
+      <button class="btn btn-cancel">Cancel</button>
+      <button class="btn btn-primary">Ok</button>
+    </div>
+  </div>
+</div>
+-->
+
+
+{% endblock %}

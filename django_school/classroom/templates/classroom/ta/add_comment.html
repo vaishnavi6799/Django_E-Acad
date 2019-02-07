@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'ta_course_list' %}" class="yellow">My Courses</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'course_ta_view' course.id %}" class="yellow">{{ course.course_title }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ document.file_name }}</li>
+    </ol>
+  </nav>
+    <div class="well">
+        {% include 'messages.html' %}
+      <div class="page-header">
+          <h1>Discussion on class notes <strong>{{ document.file_name }}</strong></h1>
+      </div>
+        <form action="." method="post">
+            <div class="input-group">
+            {% csrf_token %}
+            <input type="text" name="text" class="form-control" size="50" placeholder="comment" required>
+            <div class="input-group-btn">
+            <button type="submit" class="btn btn-button">Add Comment</button>
+            </div>
+            </div>
+        </form>
+
+        {% for comment in comments.all %}
+        <div class="media">
+            <div class="media-left">
+                <img src="data:image/png;base64,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" class="media-object" style="width:45px">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ comment.user.first_name }} {{ comment.user.last_name }} <small><i>Posted on  {{ comment.created_date }}</i></small>
+
+                    {% if user == comment.user %}
+                        <a class="btn btn-default" href="{% url 'comment_remove_ta' comment.pk %}" ><span class="glyphicon glyphicon-trash"></span></a>
+                        <a class="btn btn-default" href="{% url 'comment_approve_ta' comment.pk %}" ><span class="glyphicon glyphicon-edit"></span></a>
+                    {% endif %}
+
+                </h4>
+                <h5>{{ comment.text }}</h5>
+
+                {% for reply in comment.replies.all %}
+
+                <div class="media">
+                    <div class="media-left">
+                        <span class="glyphicon glyphicon-share-alt logo-small"></span>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ reply.user.first_name }} {{ reply.user.last_name }} <small><i>Posted on {{ reply.created_date }}</i></small>
+                            {% if user == reply.user %}
+                            <a class="btn btn-default" href="{% url 'reply_remove_ta' reply.pk %}" ><span class="glyphicon glyphicon-trash"></span></a>
+                            <a class="btn btn-default" href="{% url 'reply_approve_ta' reply.pk %}" ><span class="glyphicon glyphicon-edit"></span></a>
+                            {% endif %}
+                        </h4>
+                        <h5>{{ reply.text }}</h5>
+                    </div>
+                </div>
+
+                {% empty %}
+
+                <p>No replies yet</p>
+
+                {% endfor %}
+
+                <form action="." method="post">
+                    <div class="input-group">
+                        {% csrf_token %}
+                        <input type="text" name="text" class="form-control" size="50" placeholder="reply" required>
+                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn" style="background-color: #062F4F; color: white;">Reply</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <p>No comments yet..</p>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

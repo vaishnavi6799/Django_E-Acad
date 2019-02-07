@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'ta_course_list' %}" class="yellow">My Courses</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ course.course_title }}</li>
+    </ol>
+  </nav>
+ <div class="col-10 text-right">
+     <p>{{course.about }}</p><br>
+     <p>Class Notes</p>
+      {% for document in documents %}
+        <li>
+         <a href="{{ document.file_upload.url }}">{{ document.file_name }}</a>
+             <small>(Uploaded at: {{ document.uploaded_at }})</small>
+             </li>
+      {% endfor %}
+     <p>Assignments</p>
+      {% for assignment in assignments %}
+        <li>
+         <a href="{{ assignment.file_upload.url }}">{{ assignment.file_name }}</a>
+
+             <small>(Uploaded at: {{ assignment.uploaded_at }})</small>
+
+
+
+
+        </li>
+
+      {% endfor %}
+
+
+
+  </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'course_add' %}" class="yellow">My Courses</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'course_view' assignment.course.id %}" class="yellow">{{ assignment.course.course_title }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Allot Teaching assistant</li>
+    </ol>
+  </nav>
+    <div class="well">
+      <div class="page-header">
+
+           <h2 >Allot teaching assistant</h2>
+
+      </div>
+          <form method="post" novalidate>
+              {% csrf_token %}
+              {{ form|crispy }}
+              <button type="submit" class="btn btn-button">Save</button>
+          </form>
+    </div>
+
+
+{% endblock %}
